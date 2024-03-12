@@ -1,0 +1,44 @@
+Please check the README.pdf Section 2 for a detailed install guide.
+Simple execution examples with possible outputs:
+
+AdHere:
+After installing, run `python AdHere.py' in the terminal/bash
+
+The program will show:
+No input domain given, will perform ad hunting on google.com
+...[Some detailed outputs]...
+Violations and fix suggestions have been saved to violations.txt
+
+And the genreated violations.txt (in the src folder) should contains the following text:
+It seems like AdHere doesn't find violating ads on google.com this time. 
+
+Please note that in rare cases, AdHere will report ads on google.com. Please execute again and it should
+disappear.
+
+
+Preliminary:
+After installing, make sure you have at least one API key and change the value of `TARGET\_LIST` from `top-1m' to `top-10' to quickly scan the top 10 websites. We apologize that we cannot share our API keys
+as they are also used by other projects and may break the anomonity of these projects.
+
+run `python google.py' in the terminal/bash
+
+The program will show:
+Hello! Today is XXX
+No API search finished today, we are about to do so!
+...[Some detailed outputs]...
+Bye Bye!
+
+And generate several files in the src folder. You only need to focus on the file
+[R]Alexa_done XX.csv
+which can contain the following contents.
+1,google.com,PASSING,PASSING,200,2022-01-03T09:12:34.780751Z,2021-12-30T06:31:20.871329Z,OFF,,,OFF,,
+2,youtube.com,PASSING,PASSING,200,2022-03-02T05:45:03.653652Z,2022-03-02T05:45:03.653652Z,OFF,,,OFF,,
+3,facebook.com,PASSING,PASSING,200,2020-03-06T08:05:15.972916Z,2022-01-21T06:50:25.160063Z,OFF,,,OFF,,
+4,baidu.com,PASSING,PASSING,200,2022-03-02T10:30:49.937330Z,2022-03-04T05:18:27.427947Z,OFF,,,OFF,,
+5,wikipedia.org,PASSING,PASSING,200,2023-01-24T09:38:49.626345Z,2023-01-24T09:38:49.626345Z,OFF,,,OFF,,
+6,qq.com,PASSING,PASSING,200,2020-02-26T01:24:23.610925Z,2020-02-26T01:24:23.610925Z,OFF,,,OFF,,
+7,taobao.com,PASSING,PASSING,200,2018-11-20T18:37:01.951754Z,2018-11-20T18:37:02.063863Z,OFF,,,OFF,,
+8,tmall.com,PASSING,PASSING,200,2018-11-16T10:57:41.124157Z,2018-11-16T10:57:40.139911Z,OFF,,,OFF,,
+9,yahoo.com,PASSING,PASSING,200,2022-02-24T05:32:10.290875Z,2022-03-03T05:12:05.267455Z,OFF,,,OFF,,
+10,amazon.co,UNKNOWN,UNKNOWN,200,,,,,,,,
+Although specific value may change, the overall structure should look similar.

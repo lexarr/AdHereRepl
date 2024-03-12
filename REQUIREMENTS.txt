@@ -1,0 +1,12 @@
+OS: 
+Windows (tested on Windows 10 64-bit) or Linux (tested on Linux 20.04 LTS)
+
+Dependencies:
+- Python 3 (recommended >= 3.7)  
+- Python 3 libraries: Selenium, lxml, wmi, pywin32, requests
+  - Linux user: wmi, pywin32 are not needed
+- Google Chrome (recommended version >= 79) 
+- ChromeDriver: Version corresponding to Chrome version and OS. 
+		Download here: https://chromedriver.chromium.org/
+
+Please do not move or delete files in src folder.

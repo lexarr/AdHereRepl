@@ -1,0 +1,9 @@
+Badges applying for:
+Artifact Evaluated (Functional) 
+Reason to apply: The artifact contains the same data, scripts, and examples used in the paper with proper
+documentation. The artifact also include appropriate evidence of verification and validation.
+
+Artifact Available
+Reason to apply: The artifact is publicly accessible (hosted at osf.io). Link:
+https://osf.io/s8mhw/?view_only=42a1f52903964e68836faa76f84a180f
+A DOI or link to this repository along with a unique identifier for the object is provided.
