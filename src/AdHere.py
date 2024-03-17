@@ -9,7 +9,7 @@ from selenium.webdriver.common.by import By
 import time
 import os
 import sys
-import wmi
+# import wmi
 import copy
 from lxml import etree
 
@@ -19,14 +19,14 @@ DEBUG_DETAILED_CHECK_ELEMENT = 0
 DEBUG_MORE_TIME_TO_CHECK_SOURCE_CODE = 0
 SHOW_FIX_SUGGESTIONS = 0
 
-WEB_DRIVER_PATH = './chromedriver.exe'
+WEB_DRIVER_PATH = './chromedriver'
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 ' \
      'Safari/537.36'
 
 ########################################################
 # Please fill this variable before running this script.
 # Input the user profile location of Google Chrome between the quotation marks.
-USRPROFILE = ''
+USRPROFILE = '/Users/dhruvishah/Library/Application Support/Google/Chrome/'
 ########################################################
 
 # Official ABP plugin, only works under headless mode
@@ -727,7 +727,7 @@ def AdHuntingOnce(url):
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
               + ' General initialization finished')
 
-    killChromeAndChromedriver_win32()
+    # killChromeAndChromedriver_win32()
 
     if ENABLE_DEBUG:
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
@@ -754,7 +754,7 @@ def AdHuntingOnce(url):
 
     websiteCounter[0] += 1
 
-    killChromeAndChromedriver_win32()
+    # killChromeAndChromedriver_win32()
 
     if ENABLE_DEBUG:
         print('[A]', 'AdHere successfully completes the execution.')
