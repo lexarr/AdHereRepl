@@ -6,6 +6,7 @@ from selenium.common.exceptions import NoSuchElementException as SeleniumNoSuchE
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 import time
 import os
 import sys
@@ -515,8 +516,8 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     if ENABLE_DEBUG:
         print(time.strftime("[SA]%m-%d %H:%M:%S", time.localtime())
               + '[' + addr + ']Ad hunting starts')
-
-    browser = webdriver.Chrome(executable_path=WEB_DRIVER_PATH, options=options, desired_capabilities=caps)
+    service = Service(executable_path=WEB_DRIVER_PATH)
+    browser = webdriver.Chrome(service=service, options=options, desired_capabilities=caps)
     if platform == 'desktop':
         browser.set_window_size(1366, 768)
     try:
@@ -593,7 +594,8 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     # =====================================================================================
     # verify the ad using ad-blocker-loaded browser, check the same website, online
     if adInfo:
-        browser_wP = webdriver.Chrome(executable_path=WEB_DRIVER_PATH, options=options_wP, desired_capabilities=caps)
+        service = Service(executable_path=WEB_DRIVER_PATH)
+        browser_wP = webdriver.Chrome(service=service, options=options_wP, desired_capabilities=caps)
         try:
             browser_wP.set_page_load_timeout(15)
             browser_wP.set_script_timeout(15)
