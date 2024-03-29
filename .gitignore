@@ -6,23 +6,23 @@ src/violations.txt
 
 # --- Frontend
 # dependencies
-frontend/node_modules
-frontend/.pnp
-frontend/.pnp.js
+src/frontend/node_modules
+src/frontend/.pnp
+src/frontend/.pnp.js
 
 # testing
-frontend/coverage
+src/frontend/coverage
 
 # production
-frontend/build
+src/frontend/build
 
 # misc
-frontend/.DS_Store
-frontend/.env.local
-frontend/.env.development.local
-frontend/.env.test.local
-frontend/.env.production.local
+src/frontend/.DS_Store
+src/frontend/.env.local
+src/frontend/.env.development.local
+src/frontend/.env.test.local
+src/frontend/.env.production.local
 
-frontend/npm-debug.log*
-frontend/yarn-debug.log*
-frontend/yarn-error.log*
+src/frontend/npm-debug.log*
+src/frontend/yarn-debug.log*
+src/frontend/yarn-error.log*
