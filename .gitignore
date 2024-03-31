@@ -1,5 +1,8 @@
 .DS_Store
 
+# Virtual environment
+adhere/
+
 src/google.py
 src/chromedriver
 src/violations.txt
