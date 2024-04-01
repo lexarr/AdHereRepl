@@ -464,7 +464,8 @@ def subFindCompletePage(driver, depth):
         # print('[F]Reach maximum depth limit!')
         return '<ERROR id="MAX_DEPTH_LIMIT"></ERROR>'
     try:
-        frames = driver.find_elements_by_tag_name('iframe')
+        frames = driver.find_elements(By.TAG_NAME, 'iframe')
+
         index = 0
         for eachFrame in frames:
             driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", eachFrame,
@@ -491,7 +492,8 @@ def findCompletePage(driver):
         return ''
     try:
         driver.switch_to.default_content()
-        frames = driver.find_elements_by_tag_name('iframe')
+        frames = driver.find_elements(By.TAG_NAME, 'iframe')
+
         index = 0
         for eachFrame in frames:
             driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", eachFrame,
