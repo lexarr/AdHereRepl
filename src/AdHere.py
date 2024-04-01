@@ -594,7 +594,6 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     # =====================================================================================
     # verify the ad using ad-blocker-loaded browser, check the same website, online
     if adInfo:
-        service = Service(executable_path=WEB_DRIVER_PATH)
         browser_wP = webdriver.Chrome(service=service, options=options_wP, desired_capabilities=caps)
         try:
             browser_wP.set_page_load_timeout(15)
