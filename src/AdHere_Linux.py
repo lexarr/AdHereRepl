@@ -3,10 +3,11 @@
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException as SeleniumTimeoutException
 from selenium.common.exceptions import NoSuchElementException as SeleniumNoSuchElementException
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.chrome.options import Options as ChromeOptions
+
 import time
 import os, signal
 import sys
@@ -94,9 +95,9 @@ def killChromeAndChromedriver_linux(onlyKillChromedriver=False):
 
 
 def AdHuntingInit():
-    caps = DesiredCapabilities().CHROME
+    options = ChromeOptions()
+    options.page_load_strategy = 'eager'
     # caps["pageLoadStrategy"] = "normal"       # complete
-    caps["pageLoadStrategy"] = "eager"  # interactive
     # caps["pageLoadStrategy"] = "none"         # never waits
 
     mobile_emulation = {'deviceName': 'Galaxy S5'}
@@ -135,7 +136,8 @@ def AdHuntingInit():
         desktopOptions_WithPlugin.add_extension(ABP_NO_HEADLESS_PATH)
     else:
         desktopOptions_WithPlugin.add_argument("load-extension=" + ABP_PATH)
-    return mobileOptions, desktopOptions, caps, mobileOptions_WithPlugin, desktopOptions_WithPlugin
+    # return mobileOptions, desktopOptions, caps, mobileOptions_WithPlugin, desktopOptions_WithPlugin
+    return mobileOptions, desktopOptions, options, mobileOptions_WithPlugin, desktopOptions_WithPlugin
 
 
 # based on https://stackoverflow.com/questions/47069382/want-to-retrieve-xpath-of-given-webelement/47088726#47088726
@@ -506,7 +508,7 @@ def findCompletePage(driver):
     return completePage
 
 
-def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform):
+def SinglePageAdHunting(options, options_wP, ops, addr, domain, index, platform):
     ret = []
     if platform == 'mobile':
         ret = [0, 0, 0, 0, 0, 0, 0, 0]  # pop/auto/sticky/pre/30%/flashing/pos_cd/scroll
@@ -519,7 +521,7 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
         print(time.strftime("[SA]%m-%d %H:%M:%S", time.localtime())
               + '[' + addr + ']Ad hunting starts')
     service = Service(executable_path=WEB_DRIVER_PATH)
-    browser = webdriver.Chrome(service=service, options=options, desired_capabilities=caps)
+    browser = webdriver.Chrome(service=service, options=options, options=ops)
     if platform == 'desktop':
         browser.set_window_size(1366, 768)
     try:
@@ -597,7 +599,7 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     # verify the ad using ad-blocker-loaded browser, check the same website, online
     if adInfo:
         service = Service(executable_path=WEB_DRIVER_PATH)
-        browser_wP = webdriver.Chrome(service=service, options=options_wP, desired_capabilities=caps)
+        browser_wP = webdriver.Chrome(service=service, options=options_wP, options=ops)
         try:
             browser_wP.set_page_load_timeout(15)
             browser_wP.set_script_timeout(15)
@@ -724,7 +726,7 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
 
 def AdHuntingOnce(url):
     # _wP = withPlugin
-    mO, dO, caps, mO_wP, dO_wP = AdHuntingInit()
+    mO, dO, ops, mO_wP, dO_wP = AdHuntingInit()
     websiteCounter = [0, 0, 0]
     dAdCounter = [0, 0, 0, 0]
     mAdCounter = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -739,7 +741,7 @@ def AdHuntingOnce(url):
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
               + ' MOBILE AdHere initialization finished')
     try:
-        ret = SinglePageAdHunting(mO, mO_wP, caps, url, url, 0, 'mobile')
+        ret = SinglePageAdHunting(mO, mO_wP, ops, url, url, 0, 'mobile')
     except Exception as e:
         print(e)
         ret = []
@@ -750,7 +752,7 @@ def AdHuntingOnce(url):
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
               + ' DESKTOP AdHere initialization finished')
     try:
-        ret = SinglePageAdHunting(dO, dO_wP, caps, url, url, url, 'desktop')
+        ret = SinglePageAdHunting(dO, dO_wP, ops, url, url, url, 'desktop')
     except Exception as e:
         print(e)
         ret = []
