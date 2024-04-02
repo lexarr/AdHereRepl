@@ -6,10 +6,11 @@ from selenium.common.exceptions import NoSuchElementException as SeleniumNoSuchE
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
 import time
 import os
 import sys
-import wmi
+# import wmi
 import copy
 from lxml import etree
 
@@ -19,14 +20,14 @@ DEBUG_DETAILED_CHECK_ELEMENT = 0
 DEBUG_MORE_TIME_TO_CHECK_SOURCE_CODE = 0
 SHOW_FIX_SUGGESTIONS = 0
 
-WEB_DRIVER_PATH = './chromedriver.exe'
+WEB_DRIVER_PATH = './chromedriver'
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 ' \
      'Safari/537.36'
 
 ########################################################
 # Please fill this variable before running this script.
 # Input the user profile location of Google Chrome between the quotation marks.
-USRPROFILE = ''
+USRPROFILE = '/Users/dhruvishah/Library/Application Support/Google/Chrome/'
 ########################################################
 
 # Official ABP plugin, only works under headless mode
@@ -515,8 +516,8 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     if ENABLE_DEBUG:
         print(time.strftime("[SA]%m-%d %H:%M:%S", time.localtime())
               + '[' + addr + ']Ad hunting starts')
-
-    browser = webdriver.Chrome(executable_path=WEB_DRIVER_PATH, options=options, desired_capabilities=caps)
+    service = Service(executable_path=WEB_DRIVER_PATH)
+    browser = webdriver.Chrome(service=service, options=options, desired_capabilities=caps)
     if platform == 'desktop':
         browser.set_window_size(1366, 768)
     try:
@@ -593,7 +594,7 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     # =====================================================================================
     # verify the ad using ad-blocker-loaded browser, check the same website, online
     if adInfo:
-        browser_wP = webdriver.Chrome(executable_path=WEB_DRIVER_PATH, options=options_wP, desired_capabilities=caps)
+        browser_wP = webdriver.Chrome(service=service, options=options_wP, desired_capabilities=caps)
         try:
             browser_wP.set_page_load_timeout(15)
             browser_wP.set_script_timeout(15)
@@ -727,7 +728,7 @@ def AdHuntingOnce(url):
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
               + ' General initialization finished')
 
-    killChromeAndChromedriver_win32()
+    # killChromeAndChromedriver_win32()
 
     if ENABLE_DEBUG:
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
@@ -754,7 +755,7 @@ def AdHuntingOnce(url):
 
     websiteCounter[0] += 1
 
-    killChromeAndChromedriver_win32()
+    # killChromeAndChromedriver_win32()
 
     if ENABLE_DEBUG:
         print('[A]', 'AdHere successfully completes the execution.')

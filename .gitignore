@@ -1,0 +1,4 @@
+/src/chromedriver
+/src/violations.txt
+**/*.csv
+**/*.log
