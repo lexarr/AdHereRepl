@@ -13,6 +13,10 @@ src/frontend/node_modules
 src/frontend/.pnp
 src/frontend/.pnp.js
 
+# --- Backend
+# Virtual env
+src/flask-server/venv
+
 # testing
 src/frontend/coverage
 
