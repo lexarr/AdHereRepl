@@ -136,7 +136,6 @@ def AdHuntingInit():
         desktopOptions_WithPlugin.add_extension(ABP_NO_HEADLESS_PATH)
     else:
         desktopOptions_WithPlugin.add_argument("load-extension=" + ABP_PATH)
-    # return mobileOptions, desktopOptions, caps, mobileOptions_WithPlugin, desktopOptions_WithPlugin
     return mobileOptions, desktopOptions, options, mobileOptions_WithPlugin, desktopOptions_WithPlugin
 
 
@@ -523,7 +522,7 @@ def SinglePageAdHunting(options, options_wP, ops, addr, domain, index, platform)
         print(time.strftime("[SA]%m-%d %H:%M:%S", time.localtime())
               + '[' + addr + ']Ad hunting starts')
     service = Service(executable_path=WEB_DRIVER_PATH)
-    browser = webdriver.Chrome(service=service, options=options, options=ops)
+    browser = webdriver.Chrome(service=service, options=options)
     if platform == 'desktop':
         browser.set_window_size(1366, 768)
     try:
@@ -600,8 +599,7 @@ def SinglePageAdHunting(options, options_wP, ops, addr, domain, index, platform)
     # =====================================================================================
     # verify the ad using ad-blocker-loaded browser, check the same website, online
     if adInfo:
-        service = Service(executable_path=WEB_DRIVER_PATH)
-        browser_wP = webdriver.Chrome(service=service, options=options_wP, options=ops)
+        browser_wP = webdriver.Chrome(service=service, options=options_wP)
         try:
             browser_wP.set_page_load_timeout(15)
             browser_wP.set_script_timeout(15)
