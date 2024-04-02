@@ -136,7 +136,6 @@ def AdHuntingInit():
         desktopOptions_WithPlugin.add_extension(ABP_NO_HEADLESS_PATH)
     else:
         desktopOptions_WithPlugin.add_argument("load-extension=" + ABP_PATH)
-    # return mobileOptions, desktopOptions, caps, mobileOptions_WithPlugin, desktopOptions_WithPlugin
     return mobileOptions, desktopOptions, options, mobileOptions_WithPlugin, desktopOptions_WithPlugin
 
 
