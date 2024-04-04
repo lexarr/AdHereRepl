@@ -16,13 +16,14 @@ export default function ExampleComponent() {
         }
 
         setTextToDisplay(mainStore.exampleVariable);
-        
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [textToggle]);
 		
 	return(
         <div className='flex flex-col justify-center items-center'>
             <h1 className='text-white'>Displaying text from mainStore: <span className='text-green-700 font-bold'>{textToDisplay}</span></h1>
+            
             <button 
             onClick={() => toggleText(!textToggle)}
             className='text-white bg-red-700 p-2'

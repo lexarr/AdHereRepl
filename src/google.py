@@ -11,7 +11,7 @@ ERROR_DELAY = 3  # first is DELAY, then DELAY*4, finally DELAY*9
 _429_DELAY = 20  # keep constant,stop when Google deny the request
 REQUEST_TIMEOUT = 5  # how long a request will time out
 
-TARGET_LIST = 'top-1m.csv'
+TARGET_LIST = 'top-10.csv'
 
 # =================================
 # Please fill these variables before running this script.
