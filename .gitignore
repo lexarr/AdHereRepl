@@ -1,0 +1,4 @@
+src/chromedriver.exe
+
+**/__pycache__
+**/*.log
