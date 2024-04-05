@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.service import Service
 import time
 import os
 import sys
-# import wmi
+import wmi
 import copy
 from lxml import etree
 
@@ -27,7 +27,7 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 ########################################################
 # Please fill this variable before running this script.
 # Input the user profile location of Google Chrome between the quotation marks.
-USRPROFILE = '/Users/dhruvishah/Library/Application Support/Google/Chrome/'
+USRPROFILE = ''
 ########################################################
 
 # Official ABP plugin, only works under headless mode
