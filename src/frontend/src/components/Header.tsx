@@ -9,6 +9,19 @@ export default function Header() {
   const iconStyling =
     "text-zinc-700 dark:text-white hover:text-slate-400 cursor-pointer";
 
+  // on page load, set theme based on user default
+  useEffect(() => {
+    if (
+      localStorage.theme === "dark" ||
+      (!("theme" in localStorage) &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches)
+    ) {
+      setPageTheme("dark");
+    } else {
+      setPageTheme("light");
+    }
+  }, []);
+
   // toggle between dark and light theme
   useEffect(() => {
     if (pageTheme === "dark") {
