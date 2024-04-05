@@ -775,7 +775,7 @@ def AdHuntingOnce(url):
         raise Exception('Unable to write the result to violations.txt!')
 
 
-def SanityCheck(paras):
+def SanityCheck(params):
     try:
         if USRPROFILE == '':
             raise Exception('Please fill Google Chrome\'s user profile location')
@@ -785,11 +785,11 @@ def SanityCheck(paras):
     if not os.path.exists(WEB_DRIVER_PATH):
         raise Exception('Unable to find Chromedriver')
 
-    if len(sys.argv) < 2:
+    if len(params) < 2:
         targetURL = 'google.com'
         print('No input domain given, will perform ad hunting on ' + targetURL)
     else:
-        targetURL = sys.argv[1]
+        targetURL = params[1]
         print('Input domain found, will perform ad hunting on ' + targetURL)
     return targetURL
 
