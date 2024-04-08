@@ -2,6 +2,7 @@ import "./App.css";
 import { MainStoreProvider } from "./MainStoreContext";
 import MainStore from "./MainStore"; // MainStore.tsx default export
 import Header from "./components/Header";
+import ViolatingSitesTable from "./components/ViolatingSitesTable";
 
 function App(): JSX.Element {
   return (
@@ -16,9 +17,7 @@ function App(): JSX.Element {
             id="mainContent"
             className="flex flex-col flex-wrap justify-center items-center w-10/12"
           >
-            <h1 className="text-zinc-700 dark:text-slate-400 text-9xl">
-              Placeholder Text
-            </h1>
+            <ViolatingSitesTable />
           </div>
         </div>
       </div>
