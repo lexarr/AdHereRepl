@@ -9,9 +9,9 @@ export default function ExampleComponent() {
 
   useEffect(() => {
     if (textToggle) {
-      mainStore.exampleSetterFunction("toggled text");
-    } else {
       mainStore.exampleSetterFunction("default text");
+    } else {
+      mainStore.exampleSetterFunction("toggled text");
     }
 
     setTextToDisplay(mainStore.exampleVariable);
@@ -21,10 +21,11 @@ export default function ExampleComponent() {
 
   return (
     <div className="flex flex-col justify-center items-center">
-      <h1 className="text-white">
+      <h1 className="text-black dark:text-white">
         Displaying text from mainStore:{" "}
         <span className="text-green-700 font-bold">{textToDisplay}</span>
       </h1>
+
       <button
         onClick={() => toggleText(!textToggle)}
         className="text-white bg-red-700 p-2"
