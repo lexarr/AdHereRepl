@@ -22,5 +22,5 @@
   },
   "include": [
     "src"
-  ]
+, "src/MainStore.tsx", "src/MainStoreContext.tsx"  ]
 }
