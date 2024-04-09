@@ -119,3 +119,4 @@
 - [Tailwind CSS](https://tailwindcss.com/docs/installation)
 - [Typescript](https://www.typescriptlang.org/docs/)
 - [MobX](https://mobx.js.org/react-integration.html)
+
