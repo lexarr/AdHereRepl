@@ -1,6 +1,6 @@
 ## Run the frontend locally
 1. Navigate to **_./src/frontend/_** in a terminal
-2. Execute `npm install` command to install node dependencies (_This only needs to be done once and can be skipped when launching the frontend going forward_)
+2. Execute `npm install` command to install node dependencies by creating the `node_modules` folder (_This only needs to be done once and can be skipped when launching the frontend going forward_)
 3. Execute `npm run start` command to launch **_App.tsx_** at _localhost:3000_, by default
 
 ## How MobX was Setup
@@ -119,4 +119,3 @@
 - [Tailwind CSS](https://tailwindcss.com/docs/installation)
 - [Typescript](https://www.typescriptlang.org/docs/)
 - [MobX](https://mobx.js.org/react-integration.html)
-
