@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ViolatingSiteData from "../data/violating-sites.json";
+// import "dotenv/config";
 
 export default function ViolatingSitesTable() {
   const [numSitesToShow, setNumSitesToShow] = useState(10);
@@ -9,11 +10,11 @@ export default function ViolatingSitesTable() {
     )
   );
 
-  // Currently failing to fetch data
+  // Get list of violating sites
   const getNewSites = async () => {
     try {
       const response = await fetch(
-        "https://adexperiencereport.googleapis.com/v1/violatingSites?key=[API_KEY]",
+        `https://adexperiencereport.googleapis.com/v1/violatingSites?key=${process.env.REACT_APP_AD_EXPERIENCE_API_KEY}`,
         {
           method: "GET",
         }
@@ -21,7 +22,9 @@ export default function ViolatingSitesTable() {
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       }
+
       const data = await response.json();
+
       // Update state with the new sites
       setViolatingSites(
         data.violatingSites.filter(
