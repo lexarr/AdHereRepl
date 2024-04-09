@@ -1,4 +1,4 @@
-import { FaSun, FaRegMoon } from "react-icons/fa";
+import { FaSun, FaMoon } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { useEffect, useState } from "react";
 
@@ -35,7 +35,7 @@ export default function Header() {
   return (
     <header
       id="pageHeader"
-      className="absolute flex flex-row justify-center items-center top-0 pt-3 pb-4 w-full border-solid border-b border-slate-700 backdrop-blur-md"
+      className="sm:absolute flex flex-row justify-center items-center top-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm"
     >
       <div className="">
         <h1 className="text-zinc-700 dark:text-white text-4xl font-bold">
@@ -45,15 +45,15 @@ export default function Header() {
 
       <div id="theme-icon-container" className="absolute right-10">
         <IconContext.Provider value={{ size: "25" }}>
-          {pageTheme === "light" ? (
+          {pageTheme === "dark" ? (
             <FaSun
               className={iconStyling}
-              onClick={() => setPageTheme("dark")}
+              onClick={() => setPageTheme("light")}
             />
           ) : (
-            <FaRegMoon
+            <FaMoon
               className={iconStyling}
-              onClick={() => setPageTheme("light")}
+              onClick={() => setPageTheme("dark")}
             />
           )}
         </IconContext.Provider>
