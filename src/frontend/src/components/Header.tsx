@@ -35,7 +35,7 @@ export default function Header() {
   return (
     <header
       id="pageHeader"
-      className="sm:absolute flex flex-row justify-center items-center top-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm"
+      className="fixed flex flex-row justify-center items-center top-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm"
     >
       <div className="">
         <h1 className="text-zinc-700 dark:text-white text-4xl font-bold">
