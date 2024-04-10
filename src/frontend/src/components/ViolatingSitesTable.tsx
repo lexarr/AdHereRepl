@@ -1,9 +1,14 @@
 import { useEffect, useState } from "react";
+import ViolatingSites from "../data/violating-sites.json";
 
 export default function ViolatingSitesTable() {
+  const numSitesToShow = 10;
   const [loading, setLoading] = useState(false);
-  const [numSitesToShow, setNumSitesToShow] = useState(10);
-  const [violatingSites, setViolatingSites] = useState([]);
+  const [violatingSites, setViolatingSites] = useState(
+    ViolatingSites.violatingSites.filter(
+      (element: object, index: number) => index < numSitesToShow
+    )
+  );
 
   // Get list of violating sites
   const getNewSites = async () => {
@@ -35,9 +40,10 @@ export default function ViolatingSitesTable() {
   };
 
   // Display sites from api on first load
-  useEffect(() => {
-    getNewSites();
-  }, []);
+  // useEffect(() => {
+  //   getNewSites();
+
+  // }, []);
 
   return (
     <div className="flex flex-col justify-center items-start w-full sm:w-8/12 lg:w-1/2">
