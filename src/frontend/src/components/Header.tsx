@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 export default function Header() {
   const [pageTheme, setPageTheme] = useState("dark");
 
-  const app = document.documentElement.getElementsByClassName("App");
+  // Element where 'dark' class will be applied
+  const app = document.documentElement.getElementsByTagName("div");
   const iconStyling =
     "text-zinc-700 dark:text-white hover:text-slate-400 cursor-pointer";
 
@@ -35,9 +36,9 @@ export default function Header() {
   return (
     <header
       id="pageHeader"
-      className="sticky flex flex-row justify-center items-center top-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm"
+      className="sticky flex flex-row justify-center items-center top-0 mb-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm"
     >
-      <div className="">
+      <div>
         <h1 className="text-zinc-700 dark:text-white text-4xl font-bold">
           <span className="text-green-600">Ad</span>Here
         </h1>
