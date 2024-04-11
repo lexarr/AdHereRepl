@@ -11,14 +11,9 @@ function App(): JSX.Element {
         <Header />
         <div
           id="pageBody"
-          className="bg-gradient-to-b dark:from-slate-900 dark:to-slate-950 from-slate-100 to-slate-200 h-screen w-full flex justify-center items-center font-sans"
+          className="flex flex-col flex-wrap justify-center items-center h-screen bg-gradient-to-b dark:from-slate-900 dark:to-slate-950 from-slate-100 to-slate-200 font-sans"
         >
-          <div
-            id="mainContent"
-            className="flex flex-col flex-wrap justify-center items-center w-full my-20 md:w-10/12"
-          >
-            <ViolatingSitesTable />
-          </div>
+          <ViolatingSitesTable />
         </div>
       </div>
     </MainStoreProvider>
