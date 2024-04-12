@@ -22,36 +22,79 @@ export default function ViolatingSitesTable() {
 
       const data = await response.json();
 
+     
+        // fetch('http://localhost:5000/url-check', {
+        //   // headers: {  
+        //   //   Accept: 'application/json'
+        //   // },
+        // }).then(
+        //   response => response.json()
+        // ).then(data => {
+        //   console.log('data', data.members);
+        // });
+      
+      const urlToCheck = 'http://www.google.com';  
+      fetch(`http://localhost:5000/url-check?url=${encodeURIComponent(urlToCheck)}`)
+        .then(response => response.json())
+        .then(data => {
+          console.log('URL exists:', data.does_url_exist);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+      // const r = await fetch('https://google.com', {
+      //       method: 'HEAD',
+      //       mode: 'no-cors',
+      //       // headers: {
+      //       //   'Cross-Origin-Resource-Policy': 'null'
+      //       // }
+      //     });
+      //     if (r.ok) {
+      //       console.error('found!');
+      //       // return 'site';
+      //     } else {
+      //       console.error('dne :(');
+      //       // return null;
+      //     }
       // Remove non existing websites
-      const removeNonexistingSites = data.violatingSites.filter(async (site: object) => {
-        try {
-          const response = await fetch('https://google.com', {
-            method: 'GET',
-            headers: {'Cross-Origin-Resource-Policy ': 'null'}
-          });
-          if (response.ok) {
-            console.error('found!');
-            return site;
-          } else {
-            console.error('dne :(');
-            return null;
-          }
-        } catch (error) {
-          console.error('err:' + error);
-          return null;
-        } 
-        // response = requests.head('http://www.' + site)
-        // if response.status_code == 200:
-        //   return site;
-      });
+      // const removeNonexistingSites = data.violatingSites.filter(async (site: object) => {
+      //   try {
+      //     const r = await fetch('https://google.com', {
+      //       method: 'GET',
+      //       mode: 'no-cors',
+      //       // headers: {
+      //       //   'Cross-Origin-Resource-Policy': 'null'
+      //       // }
+      //     });
+      //     if (r.ok) {
+      //       console.error('found!');
+      //       return site;
+      //     } else {
+      //       console.error('dne :(');
+      //       return null;
+      //     }
+      //   } catch (error) {
+      //     console.error('err:' + error);
+      //     return null;
+      //   } 
+      //   // response = requests.head('http://www.' + site)
+      //   // if response.status_code == 200:
+      //   //   return site;
+      // });
 
       // Display object and index of object
-      const filteredSites = removeNonexistingSites.filter(
-        (element: object, index: number) => index < numSitesToShow
-      );
+      // const filteredSites = removeNonexistingSites.filter(
+      //   (element: object, index: number) => index < numSitesToShow
+      // );
 
       // Update state with the new sites
-      setViolatingSites(filteredSites);
+      // setViolatingSites(filteredSites);
+      setViolatingSites(
+        data.violatingSites.filter(
+          (element: object, index: number) => index < numSitesToShow
+        )
+      );
     } catch (error) {
       console.error("Error fetching new sites:", error);
     } finally {
