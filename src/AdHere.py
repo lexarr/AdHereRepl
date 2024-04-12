@@ -791,12 +791,6 @@ def SanityCheck(params):
         print('No input domain given, will perform ad hunting on ' + targetURL)
     else:
         targetURL = params[1]
-        # try:
-        #     response = requests.head('http://www.' + targetURL)
-        #     if response.status_code != 200:
-        #         raise Exception('Unable to find website')
-        # except:
-        #     raise Exception('Unable to find website')
         print('Input domain found, will perform ad hunting on ' + targetURL)
     return targetURL
 
