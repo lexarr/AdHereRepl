@@ -21,5 +21,6 @@
     "jsx": "react-jsx"
   },
   "include": [
-    "src", "src/MainStore.tsx", "src/MainStoreContext.tsx"  ]
+    "src"
+, "src/MainStore.tsx", "src/MainStoreContext.tsx"  ]
 }

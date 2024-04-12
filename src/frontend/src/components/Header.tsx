@@ -1,11 +1,12 @@
-import { FaSun, FaRegMoon } from "react-icons/fa";
+import { FaSun, FaMoon } from "react-icons/fa";
 import { IconContext } from "react-icons";
 import { useEffect, useState } from "react";
 
 export default function Header() {
   const [pageTheme, setPageTheme] = useState("dark");
 
-  const app = document.documentElement.getElementsByClassName("App");
+  // Element where 'dark' class will be applied
+  const app = document.documentElement.getElementsByTagName("div");
   const iconStyling =
     "text-zinc-700 dark:text-white hover:text-slate-400 cursor-pointer";
 
@@ -35,9 +36,9 @@ export default function Header() {
   return (
     <header
       id="pageHeader"
-      className="absolute flex flex-row justify-center items-center top-0 pt-3 pb-4 w-full border-solid border-b border-slate-700 backdrop-blur-md"
+      className="sticky flex flex-row justify-center items-center top-0 mb-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm"
     >
-      <div className="">
+      <div>
         <h1 className="text-zinc-700 dark:text-white text-4xl font-bold">
           <span className="text-green-600">Ad</span>Here
         </h1>
@@ -45,15 +46,15 @@ export default function Header() {
 
       <div id="theme-icon-container" className="absolute right-10">
         <IconContext.Provider value={{ size: "25" }}>
-          {pageTheme === "light" ? (
+          {pageTheme === "dark" ? (
             <FaSun
               className={iconStyling}
-              onClick={() => setPageTheme("dark")}
+              onClick={() => setPageTheme("light")}
             />
           ) : (
-            <FaRegMoon
+            <FaMoon
               className={iconStyling}
-              onClick={() => setPageTheme("light")}
+              onClick={() => setPageTheme("dark")}
             />
           )}
         </IconContext.Provider>
