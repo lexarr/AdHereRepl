@@ -12,7 +12,7 @@ def fixes():
 
     with open('../violations.txt', 'r') as f:
         for line in f:
-            fix_suggestions += line + '<br />'
+            fix_suggestions += line + '\n'
 
     f.close()
 

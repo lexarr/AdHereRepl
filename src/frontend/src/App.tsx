@@ -19,6 +19,8 @@ function App(): JSX.Element {
             className="flex flex-col flex-wrap justify-center items-center h-screen font-sans"
           >
             <ViolatingSitesTable />
+          </div>
+          <div className="flex flex-col flex-wrap justify-center items-center">
             <FixSuggestions />
           </div>
         </div>
