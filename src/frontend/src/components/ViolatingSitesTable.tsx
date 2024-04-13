@@ -9,7 +9,7 @@ export default function ViolatingSitesTable() {
   const getNewSites = async () => {
     setLoading(true);
     try {
-      const response = await fetch(
+      const response: Response = await fetch(
         `https://adexperiencereport.googleapis.com/v1/violatingSites?key=${process.env.REACT_APP_AD_EXPERIENCE_API_KEY}`,
         {
           method: "GET",

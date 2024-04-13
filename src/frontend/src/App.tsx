@@ -3,6 +3,7 @@ import { MainStoreProvider } from "./MainStoreContext";
 import MainStore from "./MainStore"; // MainStore.tsx's default export
 import Header from "./components/Header";
 import ViolatingSitesTable from "./components/ViolatingSitesTable";
+import FixSuggestions from "./components/FixSuggestion";
 
 function App(): JSX.Element {
   return (
@@ -18,6 +19,7 @@ function App(): JSX.Element {
             className="flex flex-col flex-wrap justify-center items-center h-screen font-sans"
           >
             <ViolatingSitesTable />
+            <FixSuggestions />
           </div>
         </div>
       </div>
