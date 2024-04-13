@@ -37,43 +37,104 @@ export default function ViolatingSitesTable() {
 
       const data = await response.json();
 
-      // Remove non existing websites
-      console.log('nonfiltered sites = ', data.length)
+      // // Remove non existing websites
+      // console.log('nonfiltered sites = ', data.length)
 
-      const removeNonexistingSites = data.violatingSites.filter(async (site: ViolatingSitesData) => {
-        fetch(`http://localhost:5000/url-check?url=${encodeURIComponent(site.reviewedSite)}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.does_url_exist) {
-            return site;
-          }
-          return null;
-        })
-        .catch(error => {
-          console.error('Error:', error);
-          return null;
-        });
-      });
-      console.log('filtered sites = ', removeNonexistingSites.length)
+      // const removeNonexistingSites = data.violatingSites.filter(async (site: ViolatingSitesData) => {
+      //   fetch(`http://localhost:5000/url-check?url=${encodeURIComponent(site.reviewedSite)}`)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     if (data.does_url_exist) {
+      //       return site;
+      //     }
+      //     return null;
+      //   })
+      //   .catch(error => {
+      //     console.error('Error:', error);
+      //     return null;
+      //   });
+      // });
+      // console.log('filtered sites = ', removeNonexistingSites.length)
 
       // Display object and index of object
-      const filteredSites = removeNonexistingSites.filter(
-        (element: object, index: number) => index < numSitesToShow
-      );
+      // const filteredSites = removeNonexistingSites.filter(
+      //   (element: object, index: number) => index < numSitesToShow
+      // );
 
       // Update state with the new sites
-      setViolatingSites(filteredSites);
-      // setViolatingSites(
-      //   data.violatingSites.filter(
-      //     (element: object, index: number) => index < numSitesToShow
-      //   )
-      // );
+      // setViolatingSites(filteredSites);
+      setViolatingSites(
+        data.violatingSites.filter(
+          (element: object, index: number) => index < numSitesToShow
+        )
+      );
     } catch (error) {
       console.error("Error fetching new sites:", error);
     } finally {
       setLoading(false);
     }
   };
+
+  const getViolations = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, site: string, index: number) => {
+    try {
+      console.log("Time to find violations");
+
+      (document.querySelector("#div" + index)?.querySelector("button") as HTMLInputElement).disabled = true;
+
+      const findResponse = await fetch(
+        `http://localhost:5000/find-violations?url=${encodeURIComponent(site)}`,
+        {
+          method: "GET",
+        }
+      );
+      if (!findResponse.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const findData = await findResponse.json();
+      console.log("DATA RESP: ", findData);
+
+      try {
+        const getResponse = await fetch(
+          `http://localhost:5000/get-violations`,
+          {
+            method: "GET",
+          }
+        );
+        if (!getResponse.ok) {
+          throw new Error("Failed to fetch data");
+        }
+  
+        const getData = await getResponse.json();
+        console.log("DATA RESP: ", getData);
+
+        const violatingDisplay = document.createElement("div");
+        // violatingDisplay.innerText = JSON.stringify(getData.violations);
+
+        const parsed = Object.values(getData.violations);
+
+        parsed.forEach((line: any, index) => {
+          if (index < 7) {
+            const lineElem = document.createElement("p");
+            lineElem.innerText = line;
+            violatingDisplay.appendChild(lineElem);
+          }
+        });
+
+        (document.querySelector("#div" + (index + 1)) as HTMLInputElement).before(violatingDisplay);
+        
+      } catch (error) {
+        console.error("Error retrieving violations.txt for ", site, ": ", error);
+      } finally {
+        console.log("Violations.txt retreived");
+      }
+      
+    } catch (error) {
+      console.error("Error running AdHere on ", site, ": ", error);
+    } finally {
+      console.log("AdHere run on ", site);
+    }
+  }
 
   // Display sites from api on first load
   useEffect(() => {
@@ -102,13 +163,17 @@ export default function ViolatingSitesTable() {
           // Row
           <div
             key={index}
+            id={"div" + String(index)}
             className={`flex flex-row justify-between items-center w-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-600 p-2 border-b border-x border-slate-300 dark:border-slate-700`}
           >
             {/* Site url */}
             <p className="text-xl text-gray-400 dark:text-gray-500">
               {site["reviewedSite"]}
             </p>
-            <button className="bg-green-600 hover:bg-green-600 bg-opacity-20 text-green-500 hover:text-white p-2 rounded-md">
+            <button
+              className="bg-green-600 hover:bg-green-600 bg-opacity-20 text-green-500 hover:text-white p-2 rounded-md"
+              onClick={(e) => getViolations(e, site["reviewedSite"], index)}
+              >
               Run AdHere
             </button>
           </div>

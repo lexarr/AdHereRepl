@@ -4,14 +4,19 @@
 adhere/
 
 src/google.py
-src/chromedriver
-src/violations.txt
+src/flask-server/chromedriver
+src/flask-server/violations.txt
 
 # --- Frontend
 # dependencies
 src/frontend/node_modules
 src/frontend/.pnp
 src/frontend/.pnp.js
+
+# Flask Server
+# dependencies
+__pycache__
+~
 
 # testing
 src/frontend/coverage

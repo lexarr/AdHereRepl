@@ -1,6 +1,12 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import requests
+import platform
+
+if platform.system() == 'Linux':
+    from AdHere_Linux import AdHuntingOnce
+else:
+    from AdHere import AdHuntingOnce
 
 app = Flask(__name__)
 # The following line of code was implemented with the help of ChatGPT
@@ -21,6 +27,26 @@ def url_check():
     except requests.ConnectionError:
         print('here2')
         return {'does_url_exist': False}
+    
+@app.route('/find-violations')
+def find_violations():
+    url = request.args.get('url')
+    # url = "getsongbpm.com"
+
+    print("CHECKING: " + url)
+    AdHuntingOnce(url)
+    
+    return {'done': True}
+
+@app.route('/get-violations')
+def get_violations():
+    # Read file
+    f = open("violations.txt", "r")
+    contents = [line.rstrip('\n') for line in f]
+    print(contents)
+    f.close()
+    
+    return {'violations': contents}
 
 if __name__ == '__main__':
     app.run(debug=True)
