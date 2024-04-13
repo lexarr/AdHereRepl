@@ -19,18 +19,16 @@ export default function FixSuggestions() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-center w-full sm:w-8/12 lg:w-1/2 sm:px-10 lg:px-20 mt-28 md:mt-0">
+    <div className="flex basis-full">
       <CodeEditor
         value={fixText}
         language="text"
         readOnly
-        onChange={(evn) => setFixText(evn.target.value)}
-        padding={15}
+        padding={0}
         style={{
           overflow: "scroll",
           height: "20rem",
         }}
-        className="mb-10"
       />
     </div>
   );
