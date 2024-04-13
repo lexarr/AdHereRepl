@@ -19,15 +19,16 @@ export default function FixSuggestions() {
   }, []);
 
   return (
-    <div className="flex basis-full">
+    <div className="flex flex-row justify-start items-center w-full basis-full pt-2 pb-0">
       <CodeEditor
-        value={fixText}
-        language="text"
         readOnly
-        padding={0}
+        value={fixText}
+        language="js"
+        data-color-mode={localStorage.theme}
         style={{
           overflow: "scroll",
           height: "20rem",
+          fontSize: "1rem",
         }}
       />
     </div>
