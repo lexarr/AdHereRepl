@@ -10,7 +10,7 @@ else:
 
 app = Flask(__name__)
 # The following line of code was implemented with the help of ChatGPT
-CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:8080"}})
 
 @app.route('/url-check')
 def url_check():
@@ -41,12 +41,15 @@ def find_violations():
 @app.route('/get-violations')
 def get_violations():
     # Read file
-    f = open("violations.txt", "r")
-    contents = [line.rstrip('\n') for line in f]
-    print(contents)
+    fix_suggestions = ""
+
+    with open('violations.txt', 'r') as f:
+        for line in f:
+            fix_suggestions += line + '\n'
+
     f.close()
-    
-    return {'violations': contents}
+
+    return fix_suggestions
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(port=8080, debug=True)

@@ -1,7 +1,7 @@
 .DS_Store
 
 # Virtual environment
-adhere/
+.venv
 
 src/google.py
 src/flask-server/chromedriver
