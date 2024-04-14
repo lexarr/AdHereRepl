@@ -6,6 +6,8 @@ from selenium.common.exceptions import NoSuchElementException as SeleniumNoSuchE
 from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+
+import requests
 import time
 import os
 import sys
@@ -26,7 +28,7 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 ########################################################
 # Please fill this variable before running this script.
 # Input the user profile location of Google Chrome between the quotation marks.
-USRPROFILE = '/Users/kyleshervington/Library/Application Support/Google/Chrome'
+USRPROFILE = ''
 ########################################################
 
 # Official ABP plugin, only works under headless mode
@@ -774,7 +776,7 @@ def AdHuntingOnce(url):
         raise Exception('Unable to write the result to violations.txt!')
 
 
-def SanityCheck(paras):
+def SanityCheck(params):
     try:
         if USRPROFILE == '':
             raise Exception('Please fill Google Chrome\'s user profile location')
@@ -788,7 +790,7 @@ def SanityCheck(paras):
         targetURL = 'google.com'
         print('No input domain given, will perform ad hunting on ' + targetURL)
     else:
-        targetURL = sys.argv[1]
+        targetURL = params[1]
         print('Input domain found, will perform ad hunting on ' + targetURL)
     return targetURL
 

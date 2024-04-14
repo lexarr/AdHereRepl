@@ -40,6 +40,75 @@ export default function ViolatingSitesTable() {
     }
   };
 
+// TODO: Needs to be moved to ViolatingSitesTableRow
+  const getViolations = async (e: React.MouseEvent<HTMLButtonElement, MouseEvent>, site: string, index: number) => {
+    try {
+      console.log("Time to find violations");
+
+      // TODO: Replace with spinner
+      (document.querySelector("#div" + index)?.querySelector("button") as HTMLInputElement).disabled = true;
+
+      const findResponse = await fetch(
+        `http://localhost:5000/find-violations?url=${encodeURIComponent(site)}`,
+        {
+          method: "GET",
+        }
+      );
+      if (!findResponse.ok) {
+        throw new Error("Failed to fetch data");
+      }
+
+      const findData = await findResponse.json();
+      console.log("DATA RESP: ", findData);
+
+      // TODO: Move functionality to FixSuggestion.tsx
+      try {
+        const getResponse = await fetch(
+          `http://localhost:5000/get-violations`,
+          {
+            method: "GET",
+          }
+        );
+        if (!getResponse.ok) {
+          throw new Error("Failed to fetch data");
+        }
+        else {
+          setshowViolations(true); // Newly added
+        }
+  
+        // TODO: Change this to response.text
+        const getData = await getResponse.json();
+        console.log("DATA RESP: ", getData);
+
+        // TODO: Remove - Start
+        const violatingDisplay = document.createElement("div");
+
+        const parsed = Object.values(getData.violations);
+
+        parsed.forEach((line: any, index) => {
+          if (index < 7) {
+            const lineElem = document.createElement("p");
+            lineElem.innerText = line;
+            violatingDisplay.appendChild(lineElem);
+          }
+        });
+
+        (document.querySelector("#div" + (index + 1)) as HTMLInputElement).before(violatingDisplay);
+        // TODO: Remove - End
+        
+      } catch (error) {
+        console.error("Error retrieving violations.txt for ", site, ": ", error);
+      } finally {
+        console.log("Violations.txt retreived");
+      }
+      
+    } catch (error) {
+      console.error("Error running AdHere on ", site, ": ", error);
+    } finally {
+      console.log("AdHere run on ", site);
+    }
+  }
+
   // Display sites from api on first load
   // useEffect(() => {
   //   getNewSites();
