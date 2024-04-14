@@ -7,7 +7,30 @@ interface RowProps {
 }
 
 export default function ViolatingSiteTableRow(props: RowProps) {
+  const [loading, setLoading] = useState(false);
   const [showViolations, setShowViolations] = useState(false);
+
+  const findViolations = async (site: string, index: number) => {
+    try {
+      setLoading(true);
+
+      const response = await fetch(
+        `/find-violations?url=${encodeURIComponent(site)}`,
+        {
+          method: "GET",
+        }
+      );
+      if (!response.ok) {
+        throw new Error("Failed to fetch data");
+      } else {
+        setShowViolations(true);
+      }
+    } catch (error) {
+      console.error("Error running AdHere on ", site, ": ", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div // row-start
@@ -27,12 +50,23 @@ export default function ViolatingSiteTableRow(props: RowProps) {
         {props.url}
       </p>
       {!showViolations ? (
-        <button
-          onClick={() => setShowViolations(true)}
-          className="bg-green-600 hover:bg-green-600 bg-opacity-20 text-green-500 hover:text-white p-2 rounded-md"
-        >
-          Run AdHere
-        </button>
+        loading ? (
+          <div className="bg-slate-100 dark:bg-slate-800 p-2">
+            <img
+              src="./circle_spin.svg"
+              alt="loading spinner"
+              height={25}
+              width={25}
+            />
+          </div>
+        ) : (
+          <button
+            onClick={() => findViolations(props.url, props.index)}
+            className="bg-green-600 hover:bg-green-600 bg-opacity-20 text-green-500 hover:text-white p-2 rounded-md"
+          >
+            Run AdHere
+          </button>
+        )
       ) : (
         <button
           onClick={() => setShowViolations(false)}

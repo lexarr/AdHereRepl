@@ -7,11 +7,11 @@ export default function FixSuggestions() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("/fixes");
+        const response = await fetch("/get-violations");
         const data = await response.text();
         setFixText(data);
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching violation text:", error);
       }
     };
 
