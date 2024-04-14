@@ -23,4 +23,4 @@ def url_check():
         return {'does_url_exist': False}
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=8080)

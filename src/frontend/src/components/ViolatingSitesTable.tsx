@@ -1,25 +1,10 @@
 import { useEffect, useState } from "react";
 
-interface ViolatingSitesData {
-  reviewedSite: string,
-  mobileSummary: {
-    lastChangeTime: string,
-    betterAdsStatus: string,
-    enforcementTime: string,
-    filterStatus: string,
-  },
-  desktopSummary: {
-    lastChangeTime: string,
-    betterAdsStatus: string,
-    enforcementTime: string,
-    filterStatus: string,
-  },
-}
-
 export default function ViolatingSitesTable() {
   const [loading, setLoading] = useState(false);
-  const [numSitesToShow, setNumSitesToShow] = useState(10);
-  const [violatingSites, setViolatingSites] = useState([]);
+  const [violatingSites, setViolatingSites] = useState<string[]>([]);
+
+  const numSitesToShow = 10;
 
   // Get list of violating sites
   const getNewSites = async () => {
@@ -37,37 +22,26 @@ export default function ViolatingSitesTable() {
 
       const data = await response.json();
 
-      // Remove non existing websites
-      console.log('nonfiltered sites = ', data.length)
-
-      const removeNonexistingSites = data.violatingSites.filter(async (site: ViolatingSitesData) => {
-        fetch(`http://localhost:5000/url-check?url=${encodeURIComponent(site.reviewedSite)}`)
+      // Find first numSitesToShow sites that still exist
+      let filteredSites: string[] = [];
+      let violatingSitesIndex = 0;
+      while (filteredSites.length < numSitesToShow && violatingSitesIndex < data.violatingSites.length) {
+        const site = data.violatingSites[violatingSitesIndex++].reviewedSite;
+        // calls Flask server endpoint which returns true or false depending on whether or not the site exists
+        await fetch(`http://localhost:8080/url-check?url=${encodeURIComponent(site)}`)
         .then(response => response.json())
         .then(data => {
-          if (data.does_url_exist) {
-            return site;
+          if (data.does_url_exist && filteredSites.length !== numSitesToShow) {
+            filteredSites.push(site);
           }
-          return null;
         })
         .catch(error => {
           console.error('Error:', error);
-          return null;
         });
-      });
-      console.log('filtered sites = ', removeNonexistingSites.length)
-
-      // Display object and index of object
-      const filteredSites = removeNonexistingSites.filter(
-        (element: object, index: number) => index < numSitesToShow
-      );
-
+      }
+      
       // Update state with the new sites
       setViolatingSites(filteredSites);
-      // setViolatingSites(
-      //   data.violatingSites.filter(
-      //     (element: object, index: number) => index < numSitesToShow
-      //   )
-      // );
     } catch (error) {
       console.error("Error fetching new sites:", error);
     } finally {
@@ -106,7 +80,7 @@ export default function ViolatingSitesTable() {
           >
             {/* Site url */}
             <p className="text-xl text-gray-400 dark:text-gray-500">
-              {site["reviewedSite"]}
+              {site}
             </p>
             <button className="bg-green-600 hover:bg-green-600 bg-opacity-20 text-green-500 hover:text-white p-2 rounded-md">
               Run AdHere
