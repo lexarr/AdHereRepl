@@ -55,7 +55,7 @@ export default function ViolatingSitesTable() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-start w-full sm:w-8/12 lg:w-1/2">
+    <div className="flex flex-col justify-center items-start w-full sm:w-8/12 lg:w-1/2 sm:px-10 lg:px-20 mt-28 md:mt-0">
       {/* Row for getting new sites */}
       <div className="flex flex-row justify-start items-center w-full pb-2 border-b border-slate-300 dark:border-slate-700">
         <button
