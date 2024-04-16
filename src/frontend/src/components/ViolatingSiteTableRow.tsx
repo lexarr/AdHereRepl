@@ -2,7 +2,7 @@ import { useState } from "react";
 import FixSuggestions from "./FixSuggestion";
 
 interface RowProps {
-  index: number;
+  key: number;
   url: string;
 }
 
@@ -34,7 +34,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
 
   return (
     <div // row-start
-      key={props.index}
+      key={props.key}
       className={`flex flex-row flex-wrap justify-between items-center w-full bg-slate-100 dark:bg-slate-800 p-2 border-b border-x border-slate-300 dark:border-slate-700${
         !showViolations ? " hover:bg-slate-300 dark:hover:bg-slate-600" : ""
       }`}
@@ -61,7 +61,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
           </div>
         ) : (
           <button
-            onClick={() => findViolations(props.url, props.index)}
+            onClick={() => findViolations(props.url, props.key)}
             className="bg-green-600 hover:bg-green-600 bg-opacity-20 text-green-500 hover:text-white p-2 rounded-md"
           >
             Run AdHere
