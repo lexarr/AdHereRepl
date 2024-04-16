@@ -26,21 +26,29 @@ export default function ViolatingSitesTable() {
       // Find first numSitesToShow sites that still exist
       let filteredSites: string[] = [];
       let violatingSitesIndex = 0;
-      while (filteredSites.length < numSitesToShow && violatingSitesIndex < data.violatingSites.length) {
+      while (
+        filteredSites.length < numSitesToShow &&
+        violatingSitesIndex < data.violatingSites.length
+      ) {
         const site = data.violatingSites[violatingSitesIndex++].reviewedSite;
         // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
-        await fetch(`http://localhost:8080/url-check?url=${encodeURIComponent(site)}`)
-        .then(response => response.json())
-        .then(data => {
-          if (data.does_url_exist && filteredSites.length !== numSitesToShow) {
-            filteredSites.push(site);
-          }
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
+        await fetch(
+          `http://localhost:8080/url-check?url=${encodeURIComponent(site)}`
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            if (
+              data.does_url_exist &&
+              filteredSites.length !== numSitesToShow
+            ) {
+              filteredSites.push(site);
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
       }
-      
+
       // Update state with the new sites
       setViolatingSites(filteredSites);
     } catch (error) {
@@ -75,7 +83,7 @@ export default function ViolatingSitesTable() {
       ) : (
         // Map over sites and display them
         violatingSites.map((site, index) => (
-          <ViolatingSiteTableRow index={index} url={site["reviewedSite"]} />
+          <ViolatingSiteTableRow index={index} url={site} />
         ))
       )}
     </div>
