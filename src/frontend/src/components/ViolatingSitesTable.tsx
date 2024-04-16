@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import ViolatingSites from "../data/violating-sites.json";
 import ViolatingSiteTableRow from "./ViolatingSiteTableRow";
 
 export default function ViolatingSitesTable() {
