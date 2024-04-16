@@ -3,9 +3,10 @@
 from selenium import webdriver
 from selenium.common.exceptions import TimeoutException as SeleniumTimeoutException
 from selenium.common.exceptions import NoSuchElementException as SeleniumNoSuchElementException
-from selenium.webdriver.common.desired_capabilities import DesiredCapabilities
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
+from selenium.webdriver.chrome.service import Service
+
 import time
 import os
 import sys
@@ -91,9 +92,7 @@ def killChromeAndChromedriver_win32(onlyKillChromedriver=False):
 
 
 def AdHuntingInit():
-    caps = DesiredCapabilities().CHROME
     # caps["pageLoadStrategy"] = "normal"       # complete
-    caps["pageLoadStrategy"] = "eager"  # interactive
     # caps["pageLoadStrategy"] = "none"         # never waits
 
     mobile_emulation = {'deviceName': 'Galaxy S5'}
@@ -109,6 +108,7 @@ def AdHuntingInit():
     mobileOptions.add_argument('--user-data-dir=' + USRPROFILE)
     mobileOptions.add_argument('--user-agent=' + UA)
     mobileOptions.add_argument('--disable-popup-blocking')
+    mobileOptions.page_load_strategy = 'eager' 
 
     desktopOptions = webdriver.ChromeOptions()
     if ENABLE_DEBUG and DEBUG_NO_HEADLESS:
@@ -121,6 +121,7 @@ def AdHuntingInit():
     desktopOptions.add_argument('--user-data-dir=' + USRPROFILE)
     desktopOptions.add_argument('--user-agent=' + UA)
     desktopOptions.add_argument('--disable-popup-blocking')
+    desktopOptions.page_load_strategy = 'eager'
 
     mobileOptions_WithPlugin = copy.deepcopy(mobileOptions)
     if DEBUG_NO_HEADLESS:
@@ -132,7 +133,7 @@ def AdHuntingInit():
         desktopOptions_WithPlugin.add_extension(ABP_NO_HEADLESS_PATH)
     else:
         desktopOptions_WithPlugin.add_argument("load-extension=" + ABP_PATH)
-    return mobileOptions, desktopOptions, caps, mobileOptions_WithPlugin, desktopOptions_WithPlugin
+    return mobileOptions, desktopOptions, mobileOptions_WithPlugin, desktopOptions_WithPlugin
 
 
 # based on https://stackoverflow.com/questions/47069382/want-to-retrieve-xpath-of-given-webelement/47088726#47088726
@@ -459,7 +460,7 @@ def subFindCompletePage(driver, depth):
         # print('[F]Reach maximum depth limit!')
         return '<ERROR id="MAX_DEPTH_LIMIT"></ERROR>'
     try:
-        frames = driver.find_elements_by_tag_name('iframe')
+        frames = driver.find_elements(By.TAG_NAME, 'iframe')
         index = 0
         for eachFrame in frames:
             driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", eachFrame,
@@ -486,7 +487,7 @@ def findCompletePage(driver):
         return ''
     try:
         driver.switch_to.default_content()
-        frames = driver.find_elements_by_tag_name('iframe')
+        frames = driver.find_elements(By.TAG_NAME, 'iframe')
         index = 0
         for eachFrame in frames:
             driver.execute_script("arguments[0].setAttribute(arguments[1],arguments[2])", eachFrame,
@@ -503,7 +504,7 @@ def findCompletePage(driver):
     return completePage
 
 
-def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform):
+def SinglePageAdHunting(options, options_wP, addr, domain, index, platform):
     ret = []
     if platform == 'mobile':
         ret = [0, 0, 0, 0, 0, 0, 0, 0]  # pop/auto/sticky/pre/30%/flashing/pos_cd/scroll
@@ -515,8 +516,8 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     if ENABLE_DEBUG:
         print(time.strftime("[SA]%m-%d %H:%M:%S", time.localtime())
               + '[' + addr + ']Ad hunting starts')
-
-    browser = webdriver.Chrome(executable_path=WEB_DRIVER_PATH, options=options, desired_capabilities=caps)
+    service = Service(executable_path=WEB_DRIVER_PATH)
+    browser = webdriver.Chrome(service=service, options=options)
     if platform == 'desktop':
         browser.set_window_size(1366, 768)
     try:
@@ -593,7 +594,7 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
     # =====================================================================================
     # verify the ad using ad-blocker-loaded browser, check the same website, online
     if adInfo:
-        browser_wP = webdriver.Chrome(executable_path=WEB_DRIVER_PATH, options=options_wP, desired_capabilities=caps)
+        browser_wP = webdriver.Chrome(service=service, options=options_wP)
         try:
             browser_wP.set_page_load_timeout(15)
             browser_wP.set_script_timeout(15)
@@ -718,7 +719,7 @@ def SinglePageAdHunting(options, options_wP, caps, addr, domain, index, platform
 
 def AdHuntingOnce(url):
     # _wP = withPlugin
-    mO, dO, caps, mO_wP, dO_wP = AdHuntingInit()
+    mO, dO, mO_wP, dO_wP = AdHuntingInit()
     websiteCounter = [0, 0, 0]
     dAdCounter = [0, 0, 0, 0]
     mAdCounter = [0, 0, 0, 0, 0, 0, 0, 0]
@@ -733,7 +734,7 @@ def AdHuntingOnce(url):
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
               + ' MOBILE AdHere initialization finished')
     try:
-        ret = SinglePageAdHunting(mO, mO_wP, caps, url, url, 0, 'mobile')
+        ret = SinglePageAdHunting(mO, mO_wP, url, url, 0, 'mobile')
     except Exception as e:
         print(e)
         ret = []
@@ -744,7 +745,7 @@ def AdHuntingOnce(url):
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
               + ' DESKTOP AdHere initialization finished')
     try:
-        ret = SinglePageAdHunting(dO, dO_wP, caps, url, url, url, 'desktop')
+        ret = SinglePageAdHunting(dO, dO_wP, url, url, url, 'desktop')
     except Exception as e:
         print(e)
         ret = []
@@ -774,7 +775,7 @@ def AdHuntingOnce(url):
         raise Exception('Unable to write the result to violations.txt!')
 
 
-def SanityCheck(paras):
+def SanityCheck(params):
     try:
         if USRPROFILE == '':
             raise Exception('Please fill Google Chrome\'s user profile location')
@@ -784,11 +785,11 @@ def SanityCheck(paras):
     if not os.path.exists(WEB_DRIVER_PATH):
         raise Exception('Unable to find Chromedriver')
 
-    if len(sys.argv) < 2:
+    if len(params) < 2:
         targetURL = 'google.com'
         print('No input domain given, will perform ad hunting on ' + targetURL)
     else:
-        targetURL = sys.argv[1]
+        targetURL = params[1]
         print('Input domain found, will perform ad hunting on ' + targetURL)
     return targetURL
 
