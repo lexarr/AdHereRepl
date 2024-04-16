@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 import ViolatingSiteTableRow from "./ViolatingSiteTableRow";
 
 export default function ViolatingSitesTable() {
-  const numSitesToShow = 10;
   const [loading, setLoading] = useState(false);
-  const [violatingSites, setViolatingSites] = useState([]);
+  const [violatingSites, setViolatingSites] = useState<string[]>([]);
+
+  const numSitesToShow = 10;
 
   // Get list of violating sites
   const getNewSites = async () => {
@@ -22,12 +23,26 @@ export default function ViolatingSitesTable() {
 
       const data = await response.json();
 
+      // Find first numSitesToShow sites that still exist
+      let filteredSites: string[] = [];
+      let violatingSitesIndex = 0;
+      while (filteredSites.length < numSitesToShow && violatingSitesIndex < data.violatingSites.length) {
+        const site = data.violatingSites[violatingSitesIndex++].reviewedSite;
+        // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
+        await fetch(`http://localhost:8080/url-check?url=${encodeURIComponent(site)}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.does_url_exist && filteredSites.length !== numSitesToShow) {
+            filteredSites.push(site);
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      }
+      
       // Update state with the new sites
-      setViolatingSites(
-        data.violatingSites.filter(
-          (element: object, index: number) => index < numSitesToShow
-        )
-      );
+      setViolatingSites(filteredSites);
     } catch (error) {
       console.error("Error fetching new sites:", error);
     } finally {
