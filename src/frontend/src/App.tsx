@@ -19,7 +19,6 @@ function App(): JSX.Element {
           >
             <ViolatingSitesTable />
           </div>
-          <div className="flex flex-col flex-wrap justify-center items-center"></div>
         </div>
       </div>
     </MainStoreProvider>

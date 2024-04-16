@@ -5,11 +5,7 @@ import ViolatingSiteTableRow from "./ViolatingSiteTableRow";
 export default function ViolatingSitesTable() {
   const numSitesToShow = 10;
   const [loading, setLoading] = useState(false);
-  const [violatingSites, setViolatingSites] = useState(
-    ViolatingSites.violatingSites.filter(
-      (element: object, index: number) => index < numSitesToShow
-    )
-  );
+  const [violatingSites, setViolatingSites] = useState([]);
 
   // Get list of violating sites
   const getNewSites = async () => {
@@ -41,9 +37,9 @@ export default function ViolatingSitesTable() {
   };
 
   // Display sites from api on first load
-  // useEffect(() => {
-  //   getNewSites();
-  // }, []);
+  useEffect(() => {
+    getNewSites();
+  }, []);
 
   return (
     <div className="flex flex-col justify-center items-start w-full sm:w-8/12 lg:w-1/2 sm:px-10 lg:px-20 mt-28 md:mt-0">
