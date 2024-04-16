@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request
+from flask import Flask, request
 from flask_cors import CORS
 import requests
 import platform
@@ -31,7 +31,6 @@ def url_check():
 @app.route('/find-violations')
 def find_violations():
     url = request.args.get('url')
-    # url = "getsongbpm.com"
 
     print("CHECKING: " + url)
     AdHuntingOnce(url)
