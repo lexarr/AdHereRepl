@@ -19,7 +19,7 @@ export default function FixSuggestions() {
   }, []);
 
   return (
-    <div className="flex flex-row justify-start items-center w-full basis-full pt-2 pb-0">
+    <div className="flex flex-row justify-start items-center w-full basis-full pt-2 pb-0 z-0">
       <CodeEditor
         readOnly
         value={fixText}
