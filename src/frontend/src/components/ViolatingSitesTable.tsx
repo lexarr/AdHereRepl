@@ -3,7 +3,7 @@ import ViolatingSiteTableRow from "./ViolatingSiteTableRow";
 
 export default function ViolatingSitesTable() {
   const [loading, setLoading] = useState(false);
-  const [violatingSites, setViolatingSites] = useState<string[]>([]);
+  const [violatingSites, setViolatingSites] = useState([]);
 
   const numSitesToShow = 10;
 
@@ -25,33 +25,37 @@ export default function ViolatingSitesTable() {
       const data = await response.json();
 
       // Find first numSitesToShow sites that still exist
-      let filteredSites: string[] = [];
-      let violatingSitesIndex = 0;
-      while (
-        filteredSites.length < numSitesToShow &&
-        violatingSitesIndex < data.violatingSites.length
-      ) {
-        const site = data.violatingSites[violatingSitesIndex++].reviewedSite;
-        // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
-        await fetch(
-          `http://localhost:8080/url-check?url=${encodeURIComponent(site)}`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            if (
-              data.does_url_exist &&
-              filteredSites.length !== numSitesToShow
-            ) {
-              filteredSites.push(site);
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
-      }
+      // let filteredSites: string[] = [];
+      // let violatingSitesIndex = 0;
+      // while (
+      //   filteredSites.length < numSitesToShow &&
+      //   violatingSitesIndex < data.violatingSites.length
+      // ) {
+      //   const site = data.violatingSites[violatingSitesIndex++].reviewedSite;
+      //   // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
+      //   await fetch(
+      //     `http://localhost:8080/url-check?url=${encodeURIComponent(site)}`
+      //   )
+      //     .then((response) => response.json())
+      //     .then((data) => {
+      //       if (
+      //         data.does_url_exist &&
+      //         filteredSites.length !== numSitesToShow
+      //       ) {
+      //         filteredSites.push(site);
+      //       }
+      //     })
+      //     .catch((error) => {
+      //       console.error("Error:", error);
+      //     });
+      // }
 
       // Update state with the new sites
-      setViolatingSites(filteredSites);
+      setViolatingSites(
+        data.violatingSites.filter(
+          (element: object, index: number) => index < numSitesToShow
+        )
+      );
     } catch (error) {
       console.error("Error fetching new sites:", error);
     } finally {
@@ -84,7 +88,7 @@ export default function ViolatingSitesTable() {
       ) : (
         // Map over sites and display them
         violatingSites.map((site, index) => (
-          <ViolatingSiteTableRow index={index} url={site} />
+          <ViolatingSiteTableRow index={index} url={site["reviewedSite"]} />
         ))
       )}
     </div>

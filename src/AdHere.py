@@ -27,7 +27,7 @@ UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like 
 ########################################################
 # Please fill this variable before running this script.
 # Input the user profile location of Google Chrome between the quotation marks.
-USRPROFILE = ''
+USRPROFILE = '/Users/kyleshervington/Library/Application Support/Google/Chrome'
 ########################################################
 
 # Official ABP plugin, only works under headless mode

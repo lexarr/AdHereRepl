@@ -10,7 +10,7 @@ else:
 
 app = Flask(__name__)
 # The following line of code was implemented with the help of ChatGPT
-CORS(app, resources={r"/*": {"origins": "http://localhost:8080"}})
+CORS(app, resources={r"/*": {"origins": "http://localhost:3000"}})
 
 @app.route('/url-check')
 def url_check():
