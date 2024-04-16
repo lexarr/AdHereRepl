@@ -1,4 +1,7 @@
+/src/chromedriver
+/src/violations.txt
 src/chromedriver.exe
 
 **/__pycache__
 **/*.log
+**/*.csv
