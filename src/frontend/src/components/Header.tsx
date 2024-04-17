@@ -10,7 +10,7 @@ export default function Header() {
   const iconStyling =
     "text-zinc-700 dark:text-white hover:text-slate-400 cursor-pointer";
 
-  // on page load, set theme based on user default
+  // on page load, set theme based on user default || ChatGPT helped with the following
   useEffect(() => {
     if (
       localStorage.theme === "dark" ||
@@ -27,8 +27,10 @@ export default function Header() {
   useEffect(() => {
     if (pageTheme === "dark") {
       app[0].classList.add("dark");
+      localStorage.theme = "dark";
     } else {
       app[0].classList.remove("dark");
+      localStorage.theme = "light";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageTheme]);
@@ -36,7 +38,7 @@ export default function Header() {
   return (
     <header
       id="pageHeader"
-      className="sticky flex flex-row justify-center items-center top-0 mb-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm"
+      className="sticky flex flex-row justify-center items-center top-0 mb-0 pt-3 pb-4 w-full border-solid border-b border-slate-300 dark:border-slate-700 backdrop-blur-sm z-10"
     >
       <div>
         <h1 className="text-zinc-700 dark:text-white text-4xl font-bold">

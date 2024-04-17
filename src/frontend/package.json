@@ -1,11 +1,13 @@
 {
   "name": "frontend",
   "version": "0.1.0",
+  "proxy": "http://localhost:8080",
   "private": true,
   "dependencies": {
     "@types/node": "^16.18.93",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.23",
+    "@uiw/react-textarea-code-editor": "^3.0.2",
     "mobx": "^6.12.3",
     "mobx-react-lite": "^4.0.7",
     "react": "^18.2.0",
