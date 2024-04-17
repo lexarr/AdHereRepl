@@ -1,3 +1,6 @@
+# Run with command: python3 test_AdHere_linux.py
+# Windows:          python test_AdHere_linux.py
+
 import unittest
 import AdHere_Linux
 

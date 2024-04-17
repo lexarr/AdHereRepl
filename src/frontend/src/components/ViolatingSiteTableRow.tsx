@@ -10,20 +10,24 @@ export default function ViolatingSiteTableRow(props: RowProps) {
   const [loading, setLoading] = useState(false);
   const [showViolations, setShowViolations] = useState(false);
 
+  // Run AdHere.py against the url in this table row
   const findViolations = async (site: string, index: number) => {
     try {
       setLoading(true);
 
+      // Pass url to endpoint that runs AdHere
       const response = await fetch(
         `/find-violations?url=${encodeURIComponent(site)}`,
         {
           method: "GET",
         }
       );
+
+      // AdHere.py execution complete
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       } else {
-        setShowViolations(true);
+        setShowViolations(true); // Trigger component @1
       }
     } catch (error) {
       console.error("Error running AdHere on ", site, ": ", error);
@@ -33,7 +37,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
   };
 
   return (
-    <div // row-start
+    <div
       key={props.key}
       className={`flex flex-row flex-wrap justify-between items-center w-full bg-slate-100 dark:bg-slate-800 p-2 border-b border-x border-slate-300 dark:border-slate-700${
         !showViolations ? " hover:bg-slate-300 dark:hover:bg-slate-600" : ""
@@ -49,6 +53,9 @@ export default function ViolatingSiteTableRow(props: RowProps) {
       >
         {props.url}
       </p>
+
+      {/* Row Button */}
+      {/* Default: Run AdHere || Waiting on AdHere execution: circle_spin || Showing violations: Close */}
       {!showViolations ? (
         loading ? (
           <div className="bg-slate-100 dark:bg-slate-800 p-2">
@@ -75,7 +82,9 @@ export default function ViolatingSiteTableRow(props: RowProps) {
           Close
         </button>
       )}
+
+      {/* @1 Render component to show violations only when AdHere completes execution */}
       {showViolations && <FixSuggestions />}
-    </div> // row-end
+    </div>
   );
 }

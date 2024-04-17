@@ -13,6 +13,7 @@ import sys
 # import wmi
 import copy
 from lxml import etree
+import platform
 
 ENABLE_DEBUG = 1
 DEBUG_NO_HEADLESS = 0
@@ -20,7 +21,7 @@ DEBUG_DETAILED_CHECK_ELEMENT = 0
 DEBUG_MORE_TIME_TO_CHECK_SOURCE_CODE = 0
 SHOW_FIX_SUGGESTIONS = 0
 
-WEB_DRIVER_PATH = './chromedriver'
+WEB_DRIVER_PATH = './chromedriver.exe' if platform.system() == 'Windows' else './chromedriver'
 UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.87 ' \
      'Safari/537.36'
 
@@ -74,7 +75,7 @@ suggestion_output = []
 def currTime():
     return time.strftime("%m-%d %H:%M:%S", time.localtime())
 
-
+# This is not called because it closes the frontend when Adhere is running in Chrome browser
 def killChromeAndChromedriver_win32(onlyKillChromedriver=False):
     wmiHandler = wmi.WMI()
     try:
