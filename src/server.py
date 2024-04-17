@@ -19,20 +19,16 @@ def url_check():
         # The following logic was adapted from https://www.geeksforgeeks.org/test-the-given-page-is-found-or-not-on-the-server-using-python/#
         response = requests.head('http://www.' + url)
         if response.status_code != 200:
-            print('status code = ', response.status_code)
             return {'does_url_exist': False}
         else:
-            print('here1')
             return {'does_url_exist': True}
     except requests.ConnectionError:
-        print('here2')
         return {'does_url_exist': False}
     
 @app.route('/find-violations')
 def find_violations():
     url = request.args.get('url')
 
-    print("CHECKING: " + url)
     AdHuntingOnce(url)
     
     return {'done': True}
