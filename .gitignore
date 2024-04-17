@@ -1,7 +1,7 @@
-.DS_Store
+**/*.DS_Store
 
 # Virtual environment
-.venv
+**/*venv
 
 src/google.py
 src/chromedriver
@@ -25,7 +25,6 @@ src/frontend/coverage
 src/frontend/build
 
 # misc
-src/frontend/.DS_Store
 src/frontend/.env
 src/frontend/.env.local
 src/frontend/.env.development.local
@@ -35,4 +34,3 @@ src/frontend/.env.production.local
 src/frontend/npm-debug.log*
 src/frontend/yarn-debug.log*
 src/frontend/yarn-error.log*
-src/flask-server/venv
