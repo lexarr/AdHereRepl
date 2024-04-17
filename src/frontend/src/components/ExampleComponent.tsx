@@ -1,3 +1,5 @@
+// This component shows how to use the MobX main store
+
 import { useEffect, useState } from "react";
 import { useMainStore } from "../MainStoreContext";
 

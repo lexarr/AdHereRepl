@@ -75,7 +75,7 @@ suggestion_output = []
 def currTime():
     return time.strftime("%m-%d %H:%M:%S", time.localtime())
 
-
+# This is not called because it closes the frontend when Adhere is running in Chrome browser
 def killChromeAndChromedriver_win32(onlyKillChromedriver=False):
     wmiHandler = wmi.WMI()
     try:

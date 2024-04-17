@@ -1,6 +1,6 @@
 import "./App.css";
 import { MainStoreProvider } from "./MainStoreContext";
-import MainStore from "./MainStore"; // MainStore.tsx's default export
+import MainStore from "./MainStore";
 import Header from "./components/Header";
 import ViolatingSitesTable from "./components/ViolatingSitesTable";
 

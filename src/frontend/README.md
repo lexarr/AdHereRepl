@@ -25,11 +25,12 @@ The `ViolatingSitesTable.tsx` component requires an active API Key to retrieve a
 
 ## How MobX was Setup
 
-1. Run in terminal:
-   1. `npm install mobx mobx-react-lite`
+> **NOTE**: We did not end up using MobX in this project but we have left its relevant files and documentation here in case of future use.
+
+1. Run in terminal: `npm install mobx mobx-react-lite`
 2. Create context provider. This creates a provider component in which wrapped components are able to interact with the mobX store.
 
-   1. Create file in src folder (ex. **_MainStoreContext.tsx_**)
+   - Create file in src folder (ex. **_MainStoreContext.tsx_**)
 
    ```jsx
    import React, { ReactNode, createContext, useContext } from "react";
@@ -64,7 +65,7 @@ The `ViolatingSitesTable.tsx` component requires an active API Key to retrieve a
 
 3. Create actual store (this is where all the magic happens; all shareable variables and functions are declared here)
 
-   1. Create file in root directory (ex. **_MainStore.tsx_**)
+   - Create file in root directory (ex. **_MainStore.tsx_**)
 
    ```tsx
    import { makeObservable, observable, action } from "mobx";
