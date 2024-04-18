@@ -10,10 +10,12 @@ from selenium.webdriver.chrome.service import Service
 import time
 import os
 import sys
-# import wmi
 import copy
 from lxml import etree
 import platform
+
+if platform.system() == 'Windows':
+    import wmi
 
 ENABLE_DEBUG = 1
 DEBUG_NO_HEADLESS = 0
