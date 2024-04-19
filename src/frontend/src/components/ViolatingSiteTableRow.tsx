@@ -17,7 +17,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
 
       // Pass url to endpoint that runs AdHere
       const response = await fetch(
-        // If 'options object' issues are encountere then delete the follwoing line from package.json
+        // If 'options object' issues are encountered then delete the following line from package.json
         // "proxy": "http://localhost:8080",
         `http://localhost:8080/find-violations?url=${encodeURIComponent(site)}`,
         {
