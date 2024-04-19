@@ -735,7 +735,7 @@ def AdHuntingOnce(url):
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
               + ' General initialization finished')
 
-    killChromeAndChromedriver_linux()
+    # killChromeAndChromedriver_linux()
 
     if ENABLE_DEBUG:
         print(time.strftime("[A] %m-%d %H:%M:%S", time.localtime())
@@ -762,7 +762,7 @@ def AdHuntingOnce(url):
 
     websiteCounter[0] += 1
 
-    killChromeAndChromedriver_linux()
+    # killChromeAndChromedriver_linux()
 
     if ENABLE_DEBUG:
         print('[A]', 'AdHere successfully completes the execution.')

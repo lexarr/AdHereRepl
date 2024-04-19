@@ -1,7 +1,36 @@
-/src/chromedriver
-/src/violations.txt
-src/chromedriver.exe
+**/*.DS_Store
 
-**/__pycache__
-**/*.log
-**/*.csv
+# Virtual environment
+**/*venv
+
+src/google.py
+src/chromedriver
+src/violations.txt
+
+# --- Frontend
+# dependencies
+src/frontend/node_modules
+src/frontend/.pnp
+src/frontend/.pnp.js
+
+# Flask Server
+# dependencies
+**/*__pycache__
+~
+
+# testing
+src/frontend/coverage
+
+# production
+src/frontend/build
+
+# misc
+src/frontend/.env
+src/frontend/.env.local
+src/frontend/.env.development.local
+src/frontend/.env.test.local
+src/frontend/.env.production.local
+
+src/frontend/npm-debug.log*
+src/frontend/yarn-debug.log*
+src/frontend/yarn-error.log*
