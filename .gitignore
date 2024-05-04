@@ -5,6 +5,7 @@
 
 src/google.py
 src/chromedriver
+src/chromedriver.exe
 src/violations.txt
 
 # --- Frontend

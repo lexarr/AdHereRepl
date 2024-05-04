@@ -34,7 +34,7 @@ export default function ViolatingSitesTable() {
         const site = data.violatingSites[violatingSitesIndex++].reviewedSite;
         // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
         await fetch(
-          `http://localhost:8080/url-check?url=${encodeURIComponent(site)}`
+          `http://localhost:5000/url-check?url=${encodeURIComponent(site)}`
         )
           .then((response) => response.json())
           .then((data) => {

@@ -19,7 +19,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
       const response = await fetch(
         // If 'options object' issues are encountered then delete the following line from package.json
         // "proxy": "http://localhost:8080",
-        `http://localhost:8080/find-violations?url=${encodeURIComponent(site)}`,
+        `http://localhost:5000/find-violations?url=${encodeURIComponent(site)}`,
         {
           method: "GET",
         }
@@ -41,17 +41,15 @@ export default function ViolatingSiteTableRow(props: RowProps) {
   return (
     <div
       key={props.key}
-      className={`flex flex-row flex-wrap justify-between items-center w-full bg-slate-100 dark:bg-slate-800 p-2 border-b border-x border-slate-300 dark:border-slate-700${
-        !showViolations ? " hover:bg-slate-300 dark:hover:bg-slate-600" : ""
-      }`}
+      className={`flex flex-row flex-wrap justify-between items-center w-full bg-slate-100 dark:bg-slate-800 p-2 border-b border-x border-slate-300 dark:border-slate-700${!showViolations ? " hover:bg-slate-300 dark:hover:bg-slate-600" : ""
+        }`}
     >
       {/* Site url */}
       <p
-        className={`text-xl ${
-          !showViolations
+        className={`text-xl ${!showViolations
             ? "text-gray-400 dark:text-gray-500"
             : "text-xl text-black dark:text-white"
-        }`}
+          }`}
       >
         {props.url}
       </p>
