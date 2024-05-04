@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ViolatingSiteTableRow from "./ViolatingSiteTableRow";
 
 export default function ViolatingSitesTable() {
+  const FILTER_SITES = false;
   const [loading, setLoading] = useState(false);
   const [violatingSites, setViolatingSites] = useState<string[]>([]);
 
@@ -32,22 +33,29 @@ export default function ViolatingSitesTable() {
         violatingSitesIndex < data.violatingSites.length
       ) {
         const site = data.violatingSites[violatingSitesIndex++].reviewedSite;
-        // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
-        await fetch(
-          `http://localhost:5000/url-check?url=${encodeURIComponent(site)}`
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            if (
-              data.does_url_exist &&
-              filteredSites.length !== numSitesToShow
-            ) {
-              filteredSites.push(site);
-            }
-          })
-          .catch((error) => {
-            console.error("Error:", error);
-          });
+
+        if (FILTER_SITES) {
+          // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
+          await fetch(
+            `http://localhost:5000/url-check?url=${encodeURIComponent(site)}`
+          )
+            .then((response) => response.json())
+            .then((data) => {
+              if (
+                data.does_url_exist &&
+                filteredSites.length !== numSitesToShow
+              ) {
+                filteredSites.push(site);
+              }
+            })
+            .catch((error) => {
+              console.error("Error:", error);
+            });
+        }
+        else {
+          // If we're not filtering sites, just add them to the list
+          filteredSites.push(site);
+        }
       }
 
       // Update state with the new sites
