@@ -26,7 +26,8 @@ export default function FixSuggestions() {
         language="js"
         data-color-mode={localStorage.theme}
         style={{
-          overflow: "scroll",
+          overflowY: "scroll",
+          overflowX: "hidden",
           height: "20rem",
           fontSize: "1rem",
         }}

@@ -12,7 +12,7 @@ function App(): JSX.Element {
         <Header />
         <div
           id="pageBody"
-          className="flex flex-col flex-wrap justify-center items-center h-screen font-sans"
+          className="flex flex-col flex-wrap justify-center items-center h-full font-sans"
         >
           <ViolatingSitesTable />
         </div>

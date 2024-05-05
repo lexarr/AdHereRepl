@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import ViolatingSiteTableRow from "./ViolatingSiteTableRow";
+import CustomURLTableRow from "./CustomURLTableRow";
 
 export default function ViolatingSitesTable() {
   const FILTER_SITES = false;
   const [loading, setLoading] = useState(false);
   const [violatingSites, setViolatingSites] = useState<string[]>([]);
 
-  const numSitesToShow = 10;
+  const numSitesToShow = 9;
 
   // Get list of violating sites
   const getNewSites = async () => {
@@ -73,7 +74,7 @@ export default function ViolatingSitesTable() {
   }, []);
 
   return (
-    <div className="flex flex-col justify-center items-start w-full sm:w-8/12 lg:w-1/2 sm:px-10 lg:px-20 mt-28 md:mt-0">
+    <div className="flex flex-col justify-center items-start w-full sm:w-8/12 lg:w-1/2 sm:px-10 lg:px-20 py-5 md:mt-0">
       {/* Row plus button for getting new sites */}
       <div className="flex flex-row justify-start items-center w-full pb-2 border-b border-slate-300 dark:border-slate-700">
         <button
@@ -90,10 +91,14 @@ export default function ViolatingSitesTable() {
           <img src="./circle_spin.svg" alt="loading spinner" />
         </div>
       ) : (
-        // Map over sites and display them
-        violatingSites.map((site, index) => (
-          <ViolatingSiteTableRow key={index} url={site} />
-        ))
+        <div className="w-full">
+          <CustomURLTableRow />
+          {// Map over sites and display them
+            violatingSites.map((site, index) => (
+              <ViolatingSiteTableRow key={index} url={site} />
+            ))}
+
+        </div>
       )}
     </div>
   );

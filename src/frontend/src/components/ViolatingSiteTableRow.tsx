@@ -7,8 +7,8 @@ interface RowProps {
 }
 
 export default function ViolatingSiteTableRow(props: RowProps) {
-  const [loading, setLoading] = useState(false);
-  const [showViolations, setShowViolations] = useState(false);
+  const [loading, setLoading] = useState(false);                  // State to show/hide loading spinner
+  const [showViolations, setShowViolations] = useState(false);    // State to show/hide violations
 
   // Run AdHere.py against the url in this table row
   const findViolations = async (site: string, index: number) => {
@@ -47,8 +47,8 @@ export default function ViolatingSiteTableRow(props: RowProps) {
       {/* Site url */}
       <p
         className={`text-xl ${!showViolations
-            ? "text-gray-400 dark:text-gray-500"
-            : "text-xl text-black dark:text-white"
+          ? "text-gray-400 dark:text-gray-500"
+          : "text-xl text-black dark:text-white"
           }`}
       >
         {props.url}

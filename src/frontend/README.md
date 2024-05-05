@@ -24,7 +24,7 @@ The `ViolatingSitesTable.tsx` component requires an active API Key to retrieve a
       > Replace `[API_KEY]` with the key you copied in the previous step
 
 ## Controlling Site Filtering
-By default, when you run the frontend, the sites that populate the main table of violating sites are the first 10 sites in the response received from Google's Ad Experience Report API. <br />
+By default, when you run the frontend, the sites that populate the main table of violating sites are the first 9 sites in the response received from Google's Ad Experience Report API. <br />
 
 However, there is the option to filter out sites that do not exist. To do so, change the `FILTER_SITES` constant in **_.\src\frontend\src\components\ViolatingSitesTable.tsx_** from `false` to `true`.
 > **NOTE**: Filtering out sites can take a long time (anywhere from a few minutes to tens of minutes, depending on network speed). This will impact the time it takes to populate the table of violating sites, both on initial page load, and every time a new list is requested.
