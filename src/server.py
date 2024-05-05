@@ -48,4 +48,4 @@ def get_violations():
 
 # Port 8080 to not conflict with frontend on 3000
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    app.run(port=8080, debug=True)
