@@ -2,6 +2,7 @@ import { useState } from "react";
 import FixSuggestions from "./FixSuggestion";
 
 export default function ViolatingSiteTableRow() {
+    const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || 8080;          // Port where the backend server is running
     const [loading, setLoading] = useState(false);                  // State to show/hide loading spinner
     const [showViolations, setShowViolations] = useState(false);    // State to show/hide violations
     const [url, setUrl] = useState("");                             // State to store the URL entered by the user
@@ -15,7 +16,7 @@ export default function ViolatingSiteTableRow() {
             const response = await fetch(
                 // If 'options object' issues are encountered then delete the following line from package.json
                 // "proxy": "http://localhost:8080",
-                `http://localhost:5000/find-violations?url=${encodeURIComponent(site)}`,
+                `http://localhost:${BACKEND_PORT}/find-violations?url=${encodeURIComponent(site)}`,
                 {
                     method: "GET",
                 }

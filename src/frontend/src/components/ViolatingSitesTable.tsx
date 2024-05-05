@@ -4,6 +4,7 @@ import CustomURLTableRow from "./CustomURLTableRow";
 
 export default function ViolatingSitesTable() {
   const FILTER_SITES = false;
+  const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || 8080;          // Port where the backend server is running
   const [loading, setLoading] = useState(false);
   const [violatingSites, setViolatingSites] = useState<string[]>([]);
 
@@ -38,7 +39,7 @@ export default function ViolatingSitesTable() {
         if (FILTER_SITES) {
           // Calls Flask server endpoint which returns true or false depending on whether or not the site exists
           await fetch(
-            `http://localhost:5000/url-check?url=${encodeURIComponent(site)}`
+            `http://localhost:${BACKEND_PORT}/url-check?url=${encodeURIComponent(site)}`
           )
             .then((response) => response.json())
             .then((data) => {

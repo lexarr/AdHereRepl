@@ -3,11 +3,13 @@ import CodeEditor from "@uiw/react-textarea-code-editor";
 
 export default function FixSuggestions() {
   const [fixText, setFixText] = useState("");
+  const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || 8080;          // Port where the backend server is running
 
   useEffect(() => {
+    // Fetch the fix suggestions from the Flask server
     const fetchData = async () => {
       try {
-        const response = await fetch("/get-violations");
+        const response = await fetch(`http://localhost:${BACKEND_PORT}/get-violations`);
         const data = await response.text();
         setFixText(data);
       } catch (error) {

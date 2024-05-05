@@ -7,11 +7,12 @@ interface RowProps {
 }
 
 export default function ViolatingSiteTableRow(props: RowProps) {
+  const BACKEND_PORT = process.env.REACT_APP_BACKEND_PORT || 8080;          // Port where the backend server is running
   const [loading, setLoading] = useState(false);                  // State to show/hide loading spinner
   const [showViolations, setShowViolations] = useState(false);    // State to show/hide violations
 
   // Run AdHere.py against the url in this table row
-  const findViolations = async (site: string, index: number) => {
+  const findViolations = async (site: string) => {
     try {
       setLoading(true);
 
@@ -19,7 +20,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
       const response = await fetch(
         // If 'options object' issues are encountered then delete the following line from package.json
         // "proxy": "http://localhost:8080",
-        `http://localhost:5000/find-violations?url=${encodeURIComponent(site)}`,
+        `http://localhost:${BACKEND_PORT}/find-violations?url=${encodeURIComponent(site)}`,
         {
           method: "GET",
         }
@@ -29,7 +30,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
       if (!response.ok) {
         throw new Error("Failed to fetch data");
       } else {
-        setShowViolations(true); // Trigger component @1
+        setShowViolations(true); // Trigger component to show violations
       }
     } catch (error) {
       console.error("Error running AdHere on ", site, ": ", error);
@@ -68,7 +69,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
           </div>
         ) : (
           <button
-            onClick={() => findViolations(props.url, props.key)}
+            onClick={() => findViolations(props.url)}
             className="bg-green-600 hover:bg-green-600 bg-opacity-20 text-green-500 hover:text-white p-2 rounded-md"
           >
             Run AdHere
@@ -83,7 +84,7 @@ export default function ViolatingSiteTableRow(props: RowProps) {
         </button>
       )}
 
-      {/* @1 Render component to show violations only when AdHere completes execution */}
+      {/* Render component to show violations only when AdHere completes execution */}
       {showViolations && <FixSuggestions />}
     </div>
   );
