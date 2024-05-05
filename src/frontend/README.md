@@ -18,10 +18,34 @@ The `ViolatingSitesTable.tsx` component requires an active API Key to retrieve a
 8. Copy the newly created API key
 9. Create a **_.env_** at **_./src/frontend/_** in your project
    - The file should have the following contents:
-   ```bash
-   REACT_APP_AD_EXPERIENCE_API_KEY="[API_KEY]"
+      ```bash
+      REACT_APP_AD_EXPERIENCE_API_KEY=[API_KEY]
+      ```
+      > Replace `[API_KEY]` with the key you copied in the previous step
+
+## Controlling Site Filtering
+By default, when you run the frontend, the sites that populate the main table of violating sites are the first 9 sites in the response received from Google's Ad Experience Report API. <br />
+
+However, there is the option to filter out sites that do not exist. To do so, change the `FILTER_SITES` constant in **_.\src\frontend\src\components\ViolatingSitesTable.tsx_** from `false` to `true`.
+> **NOTE**: Filtering out sites can take a long time (anywhere from a few minutes to tens of minutes, depending on network speed). This will impact the time it takes to populate the table of violating sites, both on initial page load, and every time a new list is requested.
+
+## Controlling Port for the Backend
+By default, port 8080 is used to run the Flask server. However, some situations may arise where you have to use a different port. The purpose of changing the port is to ensure the Flask server does not conflict with other applications/services and to ensure the frontend is using the correct port to communicate with the server. To change the port, follow these steps:
+1. Change the port argument in the main function of **_./src/server.py_**
+   ```python
+   # BEFORE
+   if __name__ == '__main__':
+      app.run(port=8080, debug=True)
    ```
-   > Replace `[API_KEY]` with the key you copied at step 8
+   ```python
+   # AFTER
+   if __name__ == '__main__':
+      app.run(port=5000, debug=True)
+   ```
+2. Add a new environment variable to the **_./src/frontend/.env_** file. The variable will have your desired port number, like so:
+      ```bash
+      REACT_APP_BACKEND_PORT=5000
+      ```
 
 ## Documentation Reference
 

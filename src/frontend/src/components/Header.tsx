@@ -6,7 +6,7 @@ export default function Header() {
   const [pageTheme, setPageTheme] = useState("dark");
 
   // Element where 'dark' class will be applied
-  const app = document.documentElement.getElementsByTagName("div");
+  const divs = document.documentElement.getElementsByTagName("div");
   const iconStyling =
     "text-zinc-700 dark:text-white hover:text-slate-400 cursor-pointer";
 
@@ -26,10 +26,10 @@ export default function Header() {
   // toggle between dark and light theme
   useEffect(() => {
     if (pageTheme === "dark") {
-      app[0].classList.add("dark");
+      divs[0].classList.add("dark");
       localStorage.theme = "dark";
     } else {
-      app[0].classList.remove("dark");
+      divs[0].classList.remove("dark");
       localStorage.theme = "light";
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
